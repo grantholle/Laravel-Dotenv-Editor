@@ -1,12 +1,12 @@
 {
-    "name": "jackiedo/dotenv-editor",
+    "name": "grantholle/dotenv-editor",
     "description": "The .env file editor tool for Laravel 5+",
     "license": "MIT",
     "keywords": ["laravel", "dotenv", "dotenv-editor"],
     "authors": [
         {
-            "name": "Jackie Do",
-            "email": "anhvudo@gmail.com"
+            "name": "Grant Holle",
+            "email": "hollegrant@gmail.com"
         }
     ],
     "require": {
@@ -17,13 +17,24 @@
     },
     "autoload": {
         "psr-4": {
-            "Jackiedo\\DotenvEditor\\": "src/Jackiedo/DotenvEditor"
+            "GrantHolle\\DotenvEditor\\": "src/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "GrantHolle\\DotenvEditor\\ServiceProvider"
+            ],
+            "aliases": {
+                "Debugbar": "Barryvdh\\Debugbar\\Facade"
+            }
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "orchestra/testbench": "^5.0"
+    }
 }
