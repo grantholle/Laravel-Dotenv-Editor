@@ -33,7 +33,8 @@ class DotenvBackupCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
+     * @throws \GrantHolle\DotenvEditor\Exceptions\FileNotFoundException
      */
     public function fire()
     {
