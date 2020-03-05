@@ -21,8 +21,6 @@ class DotenvEditorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom($packageConfigPath, 'dotenv-editor');
-
         $this->publishes([
             __DIR__ . '/config.php' => config_path('dotenv-editor.php'),
         ], 'config');
