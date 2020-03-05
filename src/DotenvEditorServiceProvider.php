@@ -2,6 +2,12 @@
 
 namespace GrantHolle\DotenvEditor;
 
+use GrantHolle\DotenvEditor\Console\Commands\DotenvBackupCommand;
+use GrantHolle\DotenvEditor\Console\Commands\DotenvDeleteKeyCommand;
+use GrantHolle\DotenvEditor\Console\Commands\DotenvGetBackupsCommand;
+use GrantHolle\DotenvEditor\Console\Commands\DotenvGetKeysCommand;
+use GrantHolle\DotenvEditor\Console\Commands\DotenvRestoreCommand;
+use GrantHolle\DotenvEditor\Console\Commands\DotenvSetKeyCommand;
 use Illuminate\Support\ServiceProvider;
 
 class DotenvEditorServiceProvider extends ServiceProvider
@@ -33,7 +39,7 @@ class DotenvEditorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('dotenv-editor', 'GrantHolle\DotenvEditor\DotenvEditor');
+        $this->app->bind(DotenvEditor::class, DotenvEditor::class);
 
         $this->registerCommands();
 
@@ -47,19 +53,12 @@ class DotenvEditorServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $this->app->bind('command.dotenv.backup', 'GrantHolle\DotenvEditor\Console\Commands\DotenvBackupCommand');
-        $this->app->bind('command.dotenv.deletekey', 'GrantHolle\DotenvEditor\Console\Commands\DotenvDeleteKeyCommand');
-        $this->app->bind('command.dotenv.getbackups', 'GrantHolle\DotenvEditor\Console\Commands\DotenvGetBackupsCommand');
-        $this->app->bind('command.dotenv.getkeys', 'GrantHolle\DotenvEditor\Console\Commands\DotenvGetKeysCommand');
-        $this->app->bind('command.dotenv.restore', 'GrantHolle\DotenvEditor\Console\Commands\DotenvRestoreCommand');
-        $this->app->bind('command.dotenv.setkey', 'GrantHolle\DotenvEditor\Console\Commands\DotenvSetKeyCommand');
-
-        $this->commands('command.dotenv.backup');
-        $this->commands('command.dotenv.deletekey');
-        $this->commands('command.dotenv.getbackups');
-        $this->commands('command.dotenv.getkeys');
-        $this->commands('command.dotenv.restore');
-        $this->commands('command.dotenv.setkey');
+        $this->commands(DotenvBackupCommand::class);
+        $this->commands(DotenvDeleteKeyCommand::class);
+        $this->commands(DotenvGetBackupsCommand::class);
+        $this->commands(DotenvGetKeysCommand::class);
+        $this->commands(DotenvRestoreCommand::class);
+        $this->commands(DotenvSetKeyCommand::class);
     }
 
     /**
@@ -70,13 +69,7 @@ class DotenvEditorServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'dotenv-editor',
-            'command.dotenv.backup',
-            'command.dotenv.deletekey',
-            'command.dotenv.getbackups',
-            'command.dotenv.getkeys',
-            'command.dotenv.restore',
-            'command.dotenv.setkey'
+            DotenvEditor::class,
         ];
     }
 }
