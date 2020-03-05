@@ -1,4 +1,6 @@
-<?php namespace GrantHolle\DotenvEditor;
+<?php
+
+namespace GrantHolle\DotenvEditor;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Config\Repository as Config;
@@ -6,12 +8,6 @@ use GrantHolle\DotenvEditor\Exceptions\FileNotFoundException;
 use GrantHolle\DotenvEditor\Exceptions\KeyNotFoundException;
 use GrantHolle\DotenvEditor\Exceptions\NoBackupAvailableException;
 
-/**
- * The DotenvEditor class.
- *
- * @package GrantHolle\DotenvEditor
- * @author Jackie Do <anhvudo@gmail.com>
- */
 class DotenvEditor
 {
     /**

@@ -1,4 +1,6 @@
-<?php namespace GrantHolle\DotenvEditor;
+<?php
+
+namespace GrantHolle\DotenvEditor;
 
 use GrantHolle\DotenvEditor\Contracts\DotenvFormatter as DotenvFormatterContract;
 use GrantHolle\DotenvEditor\Exceptions\InvalidValueException;
