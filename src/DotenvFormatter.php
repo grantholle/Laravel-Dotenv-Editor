@@ -22,7 +22,7 @@ class DotenvFormatter implements DotenvFormatterContract
      */
     public function formatKey($key)
     {
-        return trim(str_replace(array('export ', '\'', '"', ' '), '', $key));
+        return trim(str_replace(['export ', '\'', '"', ' '], '', $key));
     }
 
     /**
@@ -59,14 +59,12 @@ class DotenvFormatter implements DotenvFormatterContract
     public function formatSetterLine($key, $value = null, $comment = null, $export = false)
     {
         $forceQuotes = (strlen($comment) > 0 && strlen(trim($value)) == 0);
-        $value       = $this->formatValue($value, $forceQuotes);
-        $key         = $this->formatKey($key);
-        $comment     = $this->formatComment($comment);
-        $export      = $export ? 'export ' : '';
+        $value = $this->formatValue($value, $forceQuotes);
+        $key = $this->formatKey($key);
+        $comment = $this->formatComment($comment);
+        $export = $export ? 'export ' : '';
 
-        $line = "{$export}{$key}={$value}{$comment}";
-
-        return $line;
+        return "{$export}{$key}={$value}{$comment}";
     }
 
     /**
@@ -110,8 +108,8 @@ class DotenvFormatter implements DotenvFormatterContract
         }
 
         $value = str_replace("\\$quote", $quote, $value);
-        $value = str_replace('\\\\', '\\', $value);
-        return $value;
+
+        return str_replace('\\\\', '\\', $value);
     }
 
     /**
@@ -138,26 +136,26 @@ class DotenvFormatter implements DotenvFormatterContract
     public function parseLine($line)
     {
         $output = [
-            'type'    => null,
-            'export'  => null,
-            'key'     => null,
-            'value'   => null,
+            'type' => null,
+            'export' => null,
+            'key' => null,
+            'value' => null,
             'comment' => null,
         ];
 
         if ($this->isEmpty($line)) {
             $output['type'] = 'empty';
         } elseif ($this->isComment($line)) {
-            $output['type']    = 'comment';
+            $output['type'] = 'comment';
             $output['comment'] = $this->normaliseComment($line);
         } elseif ($this->looksLikeSetter($line)) {
             list($key, $data) = array_map('trim', explode('=', $line, 2));
             $export = $this->isExportKey($key);
-            $key    = $this->normaliseKey($key);
-            $data   = trim($data);
+            $key = $this->normaliseKey($key);
+            $data = trim($data);
 
             if (!$data && $data !== '0') {
-                $value   = '';
+                $value = '';
                 $comment = '';
             } else {
                 if ($this->beginsWithAQuote($data)) { // data starts with a quote
@@ -178,15 +176,15 @@ class DotenvFormatter implements DotenvFormatterContract
                         $quote
                     );
 
-                    $value  = preg_replace($regexPattern, '$1', $data);
+                    $value = preg_replace($regexPattern, '$1', $data);
                     $extant = preg_replace($regexPattern, '$2', $data);
 
                     $value = $this->normaliseValue($value, $quote);
                     $comment = ($this->isComment($extant)) ? $this->normaliseComment($extant) : '';
                 } else {
-                    $parts   = explode(' #', $data, 2);
+                    $parts = explode(' #', $data, 2);
 
-                    $value   = $this->normaliseValue($parts[0]);
+                    $value = $this->normaliseValue($parts[0]);
                     $comment = (isset($parts[1])) ? $this->normaliseComment($parts[1]) : '';
 
                     // Unquoted values cannot contain whitespace
@@ -196,10 +194,10 @@ class DotenvFormatter implements DotenvFormatterContract
                 }
             }
 
-            $output['type']    = 'setter';
-            $output['export']  = $export;
-            $output['key']     = $key;
-            $output['value']   = $value;
+            $output['type'] = 'setter';
+            $output['export'] = $export;
+            $output['key'] = $key;
+            $output['value'] = $value;
             $output['comment'] = $comment;
         } else {
             $output['type'] = 'unknown';
