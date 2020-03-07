@@ -20,6 +20,11 @@
             "GrantHolle\\DotenvEditor\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GrantHolle\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
