@@ -1,4 +1,6 @@
-<?php namespace GrantHolle\DotenvEditor\Contracts;
+<?php
+
+namespace GrantHolle\DotenvEditor\Contracts;
 
 interface DotenvReader
 {
