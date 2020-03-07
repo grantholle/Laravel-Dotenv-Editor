@@ -1,22 +1,13 @@
-<?php namespace GrantHolle\DotenvEditor\Facades;
+<?php
+
+namespace GrantHolle\DotenvEditor\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * The DotenvEditor facade.
- *
- * @package GrantHolle\DotenvEditor\Facades
- * @author Jackie Do <anhvudo@gmail.com>
- */
 class DotenvEditor extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return 'dotenv-editor';
+        return \GrantHolle\DotenvEditor\DotenvEditor::class;
     }
 }

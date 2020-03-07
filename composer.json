@@ -34,7 +34,7 @@
                 "GrantHolle\\DotenvEditor\\ServiceProvider"
             ],
             "aliases": {
-                "Debugbar": "Barryvdh\\Debugbar\\Facade"
+                "DotenvEditor": "GrantHolle\\DotenvEditor\\Facades\\DotenvEditor"
             }
         }
     },
