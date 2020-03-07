@@ -34,13 +34,6 @@ class DotenvEditor
     protected $writer;
 
     /**
-     * The app's .env filepath
-     *
-     * @var string
-     */
-    protected $appEnvFile;
-
-    /**
      * The file path
      *
      * @var string
@@ -86,8 +79,7 @@ class DotenvEditor
             copy(__DIR__ . '/stubs/gitignore.txt', $this->backupPath . '../.gitignore');
         }
 
-        $this->appEnvFile = $app->environmentFilePath();
-        $this->load();
+        $this->load($app->environmentFilePath());
     }
 
     /**
@@ -105,7 +97,7 @@ class DotenvEditor
     {
         $this->resetContent();
 
-        $this->filePath = $filePath ?? $this->appEnvFile;
+        $this->filePath = $filePath ?? base_path('.env');
 
         $this->reader->load($this->filePath);
 
