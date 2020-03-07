@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |----------------------------------------------------------------------
@@ -11,7 +11,7 @@ return array(
     | the original file will be backed up before save.
     */
 
-    'autoBackup' => true,
+    'autoBackup' => env('DOTENV_AUTO_BACKUP', true),
 
     /*
     |----------------------------------------------------------------------
@@ -22,6 +22,6 @@ return array(
     | path from root folder of project application.
     */
 
-    'backupPath' => storage_path('dotenv-editor/backups/')
+    'backupPath' => env('DOTENV_BACKUP_PATH', storage_path('dotenv-editor/backups/')),
 
-);
+];
