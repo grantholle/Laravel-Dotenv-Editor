@@ -62,7 +62,7 @@ class DotenvEditor
      */
     const BACKUP_FILENAME_SUFFIX = '';
 
-    public function __construct(Container $app, Config $config)
+    public function __construct(Container $app)
     {
         $formatterClass = config('dotenv-editor.formatter_class');
         $this->formatter = new $formatterClass;
