@@ -32,65 +32,28 @@ class DotenvReader implements DotenvReaderContract
      * Create a new reader instance
      *
      * @param \GrantHolle\DotenvEditor\Contracts\DotenvFormatter $formatter
+     * @param string $filePath
      */
-    public function __construct(DotenvFormatterContract $formatter)
+    public function __construct(DotenvFormatterContract $formatter, string $filePath)
     {
         $this->formatter = $formatter;
-    }
-
-    /**
-     * Load file
-     *
-     * @param  string $filePath
-     *
-     * @return DotenvReader
-     */
-    public function load($filePath)
-    {
         $this->filePath = $filePath;
-        return $this;
     }
 
-    /**
-     * Ensures the given file is readable.
-     *
-     * @throws \GrantHolle\DotenvEditor\Exceptions\UnableReadFileException
-     *
-     * @return void
-     */
-    protected function ensureFileIsReadable()
+    public function content(): string
     {
-        if (!is_readable($this->filePath) || !is_file($this->filePath)) {
-            throw new UnableReadFileException(sprintf('Unable to read the file at %s.', $this->filePath));
-        }
-    }
-
-    /**
-     * Get content of file
-     *
-     * @return string
-     */
-    public function content()
-    {
-        $this->ensureFileIsReadable();
-
         return file_get_contents($this->filePath);
     }
 
-    /**
-     * Get informations of all lines from file content
-     *
-     * @return array
-     */
-    public function lines()
+    public function lines(): array
     {
         $content = [];
-        $lines   = $this->readLinesFromFile();
+        $lines = $this->readLinesFromFile();
 
         foreach ($lines as $row => $line) {
             $data = [
-                'line'        => $row+1,
-                'raw_data'    => $line,
+                'line' => $row + 1,
+                'raw_data' => $line,
                 'parsed_data' => $this->formatter->parseLine($line)
             ];
 
@@ -100,23 +63,19 @@ class DotenvReader implements DotenvReaderContract
         return $content;
     }
 
-    /**
-     * Get informations of all keys from file content
-     *
-     * @return array
-     */
-    public function keys()
+    public function keys(): array
     {
         $content = [];
         $lines   = $this->readLinesFromFile();
 
         foreach ($lines as $row => $line) {
             $data = $this->formatter->parseLine($line);
-            if ($data['type'] == 'setter') {
+
+            if ($data['type'] === 'setter') {
                 $content[$data['key']] = [
-                    'line'    => $row+1,
-                    'export'  => $data['export'],
-                    'value'   => $data['value'],
+                    'line' => $row + 1,
+                    'export' => $data['export'],
+                    'value' => $data['value'],
                     'comment' => $data['comment']
                 ];
             }
@@ -125,15 +84,8 @@ class DotenvReader implements DotenvReaderContract
         return $content;
     }
 
-    /**
-     * Read content into an array of lines with auto-detected line endings
-     *
-     * @return array
-     */
-    protected function readLinesFromFile()
+    protected function readLinesFromFile(): array
     {
-        $this->ensureFileIsReadable();
-
         $autodetect = ini_get('auto_detect_line_endings');
         ini_set('auto_detect_line_endings', '1');
         $lines = file($this->filePath, FILE_IGNORE_NEW_LINES);

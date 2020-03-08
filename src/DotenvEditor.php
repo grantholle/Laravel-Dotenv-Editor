@@ -2,11 +2,9 @@
 
 namespace GrantHolle\DotenvEditor;
 
-use Dotenv\Dotenv;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Config\Repository as Config;
 use GrantHolle\DotenvEditor\Exceptions\FileNotFoundException;
-use GrantHolle\DotenvEditor\Exceptions\KeyNotFoundException;
 use GrantHolle\DotenvEditor\Exceptions\NoBackupAvailableException;
 use Illuminate\Support\Str;
 
@@ -68,8 +66,6 @@ class DotenvEditor
     {
         $formatterClass = config('dotenv-editor.formatter_class');
         $this->formatter = new $formatterClass;
-        $this->reader = new DotenvReader($this->formatter);
-        $this->writer = new DotenvWriter($this->formatter);
 
         $this->backupPath = Str::finish(config('dotenv-editor.backupPath'), '/');
         $this->autoBackup = config('dotenv-editor.autoBackup');
@@ -95,11 +91,10 @@ class DotenvEditor
      */
     public function load($filePath = null, $restoreIfNotFound = false, $restorePath = null)
     {
-        $this->resetContent();
-
         $this->filePath = $filePath ?? base_path('.env');
 
-        $this->reader->load($this->filePath);
+        $this->reader = new DotenvReader($this->formatter, $this->filePath);
+        $this->writer = new DotenvWriter($this->formatter);
 
         if (file_exists($this->filePath)) {
             $this->writer->setBuffer($this->getContent());
@@ -111,16 +106,6 @@ class DotenvEditor
         }
 
         return $this;
-    }
-
-    /**
-     * Reset content for editor
-     */
-    protected function resetContent(): void
-    {
-        $this->filePath = null;
-        $this->reader->load(null);
-        $this->writer->setBuffer(null);
     }
 
     /*

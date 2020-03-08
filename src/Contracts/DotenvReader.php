@@ -4,25 +4,20 @@ namespace GrantHolle\DotenvEditor\Contracts;
 
 interface DotenvReader
 {
-    /**
-     * Load .env file
-     *
-     * @param  string $filePath
-     */
-    public function load($filePath);
+    public function __construct(DotenvFormatter $formatter, string $filePath);
 
     /**
-     * Get content of .env file
+     * Gets the content of the environment file
      */
-    public function content();
+    public function content(): string;
 
     /**
-     * Get all lines informations from content of .env file
+     * Gets all the information about the lines of the environment file
      */
-    public function lines();
+    public function lines(): array;
 
     /**
-     * Get all key informations in .env file
+     * Get all the information about the environment keys
      */
-    public function keys();
+    public function keys(): array;
 }
