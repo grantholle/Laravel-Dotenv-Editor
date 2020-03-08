@@ -67,7 +67,7 @@ interface DotenvFormatter
      * Parse a line into an array of type, export, key, value and comment
      *
      * @param string $line
-     * @return string
+     * @return array
      */
     public function parseLine(string $line): array;
 }
