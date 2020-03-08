@@ -64,7 +64,7 @@ class DotenvEditor
 
     public function __construct(Container $app)
     {
-        $formatterClass = config('dotenv-editor.formatter_class');
+        $formatterClass = config('dotenv-editor.classes.formatter');
         $this->formatter = new $formatterClass;
 
         $this->backupPath = Str::finish(config('dotenv-editor.backupPath'), '/');
@@ -93,8 +93,10 @@ class DotenvEditor
     {
         $this->filePath = $filePath ?? base_path('.env');
 
-        $this->reader = new DotenvReader($this->formatter, $this->filePath);
-        $this->writer = new DotenvWriter($this->formatter);
+        $reader = config('dotenv-editor.classes.reader');
+        $writer = config('dotenv-editor.classes.writer');
+        $this->reader = new $reader($this->formatter, $this->filePath);
+        $this->writer = new $writer($this->formatter);
 
         if (file_exists($this->filePath)) {
             $this->writer->setBuffer($this->getContent());

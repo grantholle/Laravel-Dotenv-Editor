@@ -24,16 +24,43 @@ return [
 
     'backupPath' => env('DOTENV_BACKUP_PATH', storage_path('dotenv-editor/backups/')),
 
-    /*
-    |----------------------------------------------------------------------
-    | Formatter Class
-    |----------------------------------------------------------------------
-    |
-    | The class that handles formatting environment keys and values.
-    | It must implement the contract class
-    | \GrantHolle\DotenvEditor\Contracts\DotenvFormatter
-    */
+    'classes' => [
+        /*
+        |----------------------------------------------------------------------
+        | Formatter Class
+        |----------------------------------------------------------------------
+        |
+        | The class that handles formatting environment keys and values.
+        | It must implement the contract class
+        | \GrantHolle\DotenvEditor\Contracts\DotenvFormatter
+        */
 
-    'formatter_class' => \GrantHolle\DotenvEditor\DotenvFormatter::class,
+        'formatter' => \GrantHolle\DotenvEditor\DotenvFormatter::class,
+
+        /*
+        |----------------------------------------------------------------------
+        | Writer Class
+        |----------------------------------------------------------------------
+        |
+        | The class that handles writing files.
+        | It must implement the contract class
+        | \GrantHolle\DotenvEditor\Contracts\DotenvWriter
+        */
+
+        'writer' => \GrantHolle\DotenvEditor\DotenvWriter::class,
+
+        /*
+        |----------------------------------------------------------------------
+        | Reader Class
+        |----------------------------------------------------------------------
+        |
+        | The class that handles reading environment files
+        | It must implement the contract class
+        | \GrantHolle\DotenvEditor\Contracts\DotenvReader
+        */
+
+        'reader' => \GrantHolle\DotenvEditor\DotenvReader::class,
+
+    ],
 
 ];
