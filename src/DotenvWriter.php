@@ -15,6 +15,13 @@ use GrantHolle\DotenvEditor\Exceptions\UnableWriteToFileException;
 class DotenvWriter implements DotenvWriterContract
 {
     /**
+     * The path to the file to write
+     *
+     * @var string
+     */
+    protected $filePath;
+
+    /**
      * The content buffer
      *
      * @var string
@@ -31,114 +38,50 @@ class DotenvWriter implements DotenvWriterContract
     /**
      * Create a new writer instance
      *
-     * @param GrantHolle\DotenvEditor\Contracts\DotenvFormatter   $formatter
+     * @param DotenvFormatterContract $formatter
      */
     public function __construct(DotenvFormatterContract $formatter)
     {
         $this->formatter = $formatter;
     }
 
-    /**
-     * Tests file for writability. If the file doesn't exist, check
-     * the parent directory for writability so the file can be created.
-     *
-     * @throws \GrantHolle\DotenvEditor\Exceptions\UnableWriteToFileException
-     *
-     * @return void
-     */
-    protected function ensureFileIsWritable($filePath)
-    {
-        if ((is_file($filePath) && !is_writable($filePath)) || (!is_file($filePath) && !is_writable(dirname($filePath)))) {
-            throw new UnableWriteToFileException(sprintf('Unable to write to the file at %s.', $filePath));
-        }
-    }
-
-    /**
-     * Set buffer with content
-     *
-     * @param  string $content
-     *
-     * @return DotenvWriter
-     */
-    public function setBuffer($content)
+    public function setBuffer(string $content): DotenvWriterContract
     {
         $this->buffer = $content;
+
         return $this;
     }
 
-    /**
-     * Return content in buffer
-     *
-     * @return string
-     */
-    public function getBuffer()
+    public function getBuffer(): string
     {
         return $this->buffer;
     }
 
-    /**
-     * Append new line to buffer
-     *
-     * @param  string|null  $text
-     *
-     * @return DotenvWriter
-     */
-    protected function appendLine($text = null)
+    protected function appendLine(string $text = null): DotenvWriterContract
     {
         $this->buffer .= $text . PHP_EOL;
+
         return $this;
     }
 
-    /**
-     * Append empty line to buffer
-     *
-     * @return DotenvWriter
-     */
-    public function appendEmptyLine()
+    public function appendEmptyLine(): DotenvWriterContract
     {
         return $this->appendLine();
     }
 
-    /**
-     * Append comment line to buffer
-     *
-     * @param  string $comment
-     *
-     * @return DotenvWriter
-     */
-    public function appendCommentLine($comment)
+    public function appendCommentLine(string $comment): DotenvWriterContract
     {
-        return $this->appendLine('# '.$comment);
+        return $this->appendLine("# {$comment}");
     }
 
-    /**
-     * Append one setter to buffer
-     *
-     * @param  string       $key
-     * @param  string|null  $value
-     * @param  string|null  $comment
-     * @param  boolean      $export
-     *
-     * @return DotenvWriter
-     */
-    public function appendSetter($key, $value = null, $comment = null, $export = false)
+    public function appendSetter(string $key, string $value = null, string $comment = null, bool $export = false): DotenvWriterContract
     {
         $line = $this->formatter->formatSetterLine($key, $value, $comment, $export);
 
         return $this->appendLine($line);
     }
 
-    /**
-     * Update one setter in buffer
-     *
-     * @param  string       $key
-     * @param  string|null  $value
-     * @param  string|null  $comment
-     * @param  boolean      $export
-     *
-     * @return DotenvWriter
-     */
-    public function updateSetter($key, $value = null, $comment = null, $export = false)
+    public function updateSetter(string $key, string $value = null, string $comment = null, bool $export = false): DotenvWriterContract
     {
         $pattern = "/^(export\h)?\h*{$key}=.*/m";
         $line = $this->formatter->formatSetterLine($key, $value, $comment, $export);
@@ -147,14 +90,7 @@ class DotenvWriter implements DotenvWriterContract
         return $this;
     }
 
-    /**
-     * Delete one setter in buffer
-     *
-     * @param  string $key
-     *
-     * @return DotenvWriter
-     */
-    public function deleteSetter($key)
+    public function deleteSetter(string $key): DotenvWriterContract
     {
         $pattern = "/^(export\h)?\h*{$key}=.*\n/m";
         $this->buffer = preg_replace($pattern, null, $this->buffer);
@@ -162,16 +98,8 @@ class DotenvWriter implements DotenvWriterContract
         return $this;
     }
 
-    /**
-     * Save buffer to special file path
-     *
-     * @param  string $filePath
-     *
-     * @return DotenvWriter
-     */
-    public function save($filePath)
+    public function save(string $filePath): DotenvWriterContract
     {
-        $this->ensureFileIsWritable($filePath);
         file_put_contents($filePath, $this->buffer);
 
         return $this;
