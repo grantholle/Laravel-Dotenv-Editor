@@ -3,63 +3,71 @@
 interface DotenvFormatter
 {
     /**
-     * Formatting the key of setter to writing
+     * Formats the key of a setter for writing
      *
-     * @param 	string	$key
+     * @param string $key
+     * @return string
      */
-    public function formatKey($key);
+    public function formatKey(string $key): string;
 
     /**
-     * Formatting the value of setter to writing
+     * Formats the value of a setter for writing
      *
-     * @param 	string	$value
-     * @param 	bool	$forceQuotes
+     * @param string $value
+     * @param bool $forceQuotes
+     * @return string
      */
-    public function formatValue($value, $forceQuotes = false);
+    public function formatValue(string $value, bool $forceQuotes = false): string;
 
     /**
-     * Formatting the comment to writing
+     * Formats a comment for writing
      *
-     * @param  string $comment
+     * @param string $comment
+     * @return string
      */
-    public function formatComment($comment);
+    public function formatComment(string $comment): string;
 
     /**
-     * Build an setter line from the individual components for writing
+     * Builds a setter line from the individual components for writing
      *
-     * @param string		$key
-     * @param string|null	$value
-     * @param string|null	$comment optional
-     * @param bool			$export optional
+     * @param string $key
+     * @param string|null $value
+     * @param string|null $comment
+     * @param bool $export
+     * @return string
      */
-    public function formatSetterLine($key, $value = null, $comment = null, $export = false);
+    public function formatSetterLine(string $key, string $value = null, string $comment = null, bool $export = false): string;
 
     /**
      * Normalising the key of setter to reading
      *
-     * @param  string $key
+     * @param string $key
+     * @return string
      */
-    public function normaliseKey($key);
+    public function normaliseKey(string $key): string;
 
     /**
      * Normalising the value of setter to reading
      *
-     * @param  string $value
-     * @param  string $quote
+     * @param string $value
+     * @param string $quote
+     * @return string
      */
-    public function normaliseValue($value, $quote = '');
+    public function normaliseValue(string $value, string $quote = ''): string;
 
     /**
      * Normalising the comment to reading
      *
-     * @param  string $comment
+     * @param string $comment
+     * @return string
      */
-    public function normaliseComment($comment);
+    public function normaliseComment(string $comment): string;
 
     /**
      * Parse a line into an array of type, export, key, value and comment
      *
-     * @param  string $line
+     * @param string $line
+     * @return string
      */
-    public function parseLine($line);
+    public function parseLine(string $line): array;
 }
