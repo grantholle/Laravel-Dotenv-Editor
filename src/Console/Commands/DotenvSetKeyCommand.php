@@ -88,7 +88,7 @@ class DotenvSetKeyCommand extends Command
 
         $this->line('Setting key in your file...');
 
-        $this->editor->load($this->filePath, $this->forceRestore, $this->restorePath);
+        $this->editor->setUp($this->filePath, $this->forceRestore, $this->restorePath);
         $this->editor->setKey($this->key, $this->value, $this->comment, $this->exportKey);
         $this->editor->save();
 

@@ -53,7 +53,7 @@ class DotenvRestoreCommand extends Command
 
         $this->line('Restoring your file...');
 
-        $this->editor->load($this->filePath)->restore($this->restorePath);
+        $this->editor->setUp($this->filePath)->restore($this->restorePath);
 
         $this->info("Your file is restored successfully");
     }

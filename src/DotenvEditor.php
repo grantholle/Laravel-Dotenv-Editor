@@ -75,7 +75,7 @@ class DotenvEditor
             copy(__DIR__ . '/stubs/gitignore.txt', $this->backupPath . '../.gitignore');
         }
 
-        $this->load($app->environmentFilePath());
+        $this->setUp($app->environmentFilePath());
     }
 
     /**
@@ -89,7 +89,7 @@ class DotenvEditor
      * @throws FileNotFoundException
      * @throws NoBackupAvailableException
      */
-    public function load($filePath = null, $restoreIfNotFound = false, $restorePath = null)
+    public function setUp($filePath = null, $restoreIfNotFound = false, $restorePath = null)
     {
         $this->filePath = $filePath ?? base_path('.env');
 

@@ -40,7 +40,7 @@ class DotenvGetKeysCommand extends Command
         $filePath       = $this->stringToType($this->option('filepath'));
         $this->filePath = (is_string($filePath)) ? base_path($filePath) : null;
 
-        $allKeys = $this->editor->load($this->filePath)->getKeys();
+        $allKeys = $this->editor->setUp($this->filePath)->getKeys();
         $output = [];
         foreach ($allKeys as $key => $info) {
             $data = [

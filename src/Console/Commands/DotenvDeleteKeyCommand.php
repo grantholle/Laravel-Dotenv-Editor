@@ -53,7 +53,7 @@ class DotenvDeleteKeyCommand extends Command
 
         $this->line('Deleting key in your file...');
 
-        $this->editor->load($this->filePath)->deleteKey($this->key)->save();
+        $this->editor->setUp($this->filePath)->deleteKey($this->key)->save();
 
         $this->info("The key [{$this->key}] is deletted successfully.");
     }

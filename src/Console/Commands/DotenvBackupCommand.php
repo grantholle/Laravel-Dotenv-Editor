@@ -43,7 +43,7 @@ class DotenvBackupCommand extends Command
 
         $this->line('Backing up your file...');
 
-        $backup = $this->editor->load($this->filePath)->backUp()->getLatestBackup();
+        $backup = $this->editor->setUp($this->filePath)->backUp()->getLatestBackup();
 
         $this->info("Your file was backed up successfully at path [{$backup['filepath']}].");
     }

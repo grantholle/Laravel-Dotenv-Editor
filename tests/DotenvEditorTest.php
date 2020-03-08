@@ -11,7 +11,7 @@ class DotenvEditorTest extends TestCase
     {
         $this->assertEquals(__DIR__ . '/.env', $this->editor->filePath);
 
-        $this->editor->load(null);
+        $this->editor->setUp(null);
         $this->assertEquals(base_path('.env'), $this->editor->filePath);
     }
 }
