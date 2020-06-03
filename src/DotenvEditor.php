@@ -232,7 +232,7 @@ class DotenvEditor
      *
      * @return DotenvEditor
      */
-    public function setKeys($data): DotenvEditor
+    public function setKeys(array $data): DotenvEditor
     {
         foreach ($data as $setter) {
             if (!array_key_exists('key', $setter)) {
@@ -259,18 +259,15 @@ class DotenvEditor
     /**
      * Set one key to buffer
      *
-     * @param string       $key      Key name of setter
-     * @param string|null  $value    Value of setter
-     * @param string|null  $comment  Comment of setter
-     * @param boolean      $export   Leading key name by "export "
-     *
+     * @param string $key Key name of setter
+     * @param string|null $value Value of setter
+     * @param string|null $comment Comment of setter
+     * @param boolean $export Leading key name by "export "
      * @return DotenvEditor
      */
     public function setKey($key, $value = null, $comment = null, $export = false): DotenvEditor
     {
-        $data = [compact('key', 'value', 'comment', 'export')];
-
-        return $this->setKeys($data);
+        return $this->setKeys([compact('key', 'value', 'comment', 'export')]);
     }
 
     public function deleteKeys(array $keys = []): DotenvEditor
