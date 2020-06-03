@@ -174,6 +174,11 @@ class DotenvEditor
         return null;
     }
 
+    public function get(string $key)
+    {
+        return $this->getValue($key);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Working with writing
