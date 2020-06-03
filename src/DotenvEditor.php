@@ -374,7 +374,7 @@ class DotenvEditor
         $backups = $this->getBackups();
 
         if (empty($backups)) {
-            return null;
+            return [];
         }
 
         $latestBackup = 0;
