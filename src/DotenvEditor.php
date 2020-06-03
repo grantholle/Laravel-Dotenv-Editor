@@ -157,7 +157,13 @@ class DotenvEditor
         return array_key_exists($key, $this->getKeys());
     }
 
-    public function getValue(string $key): string
+    /**
+     * Returns the key or null if it doesn't exist
+     *
+     * @param string $key
+     * @return string|null
+     */
+    public function getValue(string $key)
     {
         $allKeys = $this->getKeys([$key]);
 
