@@ -114,13 +114,6 @@ class DotenvEditor
     |--------------------------------------------------------------------------
     | Working with reading
     |--------------------------------------------------------------------------
-    |
-    | getContent($content)
-    | getLines()
-    | getKeys()
-    | keyExists($key)
-    | getValue($key)
-    |
     */
 
     /**
@@ -194,16 +187,6 @@ class DotenvEditor
     |--------------------------------------------------------------------------
     | Working with writing
     |--------------------------------------------------------------------------
-    |
-    | getBuffer()
-    | addEmpty()
-    | addComment($comment)
-    | setKeys($data)
-    | setKey($key, $value = null, $comment = null, $export = false)
-    | deleteKeys($keys = [])
-    | deleteKey($key)
-    | save()
-    |
     */
 
     /**
