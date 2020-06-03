@@ -20,4 +20,18 @@ class DotenvEditorTest extends TestCase
         $value = $this->editor->get('APP_NAME');
         $this->assertEquals('Laravel', $value);
     }
+
+    public function test_can_get_keys()
+    {
+        $this->editor->setUp(__DIR__ . '/.env2');
+
+        $allKeys = $this->editor->getKeys();
+        $this->assertEquals(['APP_KEY', 'CACHE_DRIVER', 'MAIL_PORT'], array_keys($allKeys));
+
+        $keys = $this->editor->getKeys(['APP_KEY', 'CACHE_DRIVER']);
+        $this->assertEquals(['APP_KEY', 'CACHE_DRIVER'], array_keys($keys));
+
+        $key = $this->editor->getKey('MAIL_PORT');
+        $this->assertEquals(['line', 'export', 'value', 'comment'], array_keys($key));
+    }
 }

@@ -144,12 +144,23 @@ class DotenvEditor
         $allKeys = $this->reader->keys();
 
         return array_filter($allKeys, function ($key) use ($keys) {
-            if (!empty($keys)) {
-                return in_array($key, $keys);
+            if (empty($keys)) {
+                return true;
             }
 
-            return true;
+            return in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
+    }
+
+    public function getKey(string $key): array
+    {
+        $results = $this->getKeys([$key]);
+
+        if (empty($results)) {
+            return $results;
+        }
+
+        return $results[$key];
     }
 
     public function keyExists(string $key): bool
