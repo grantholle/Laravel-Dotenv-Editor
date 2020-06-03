@@ -200,11 +200,16 @@ class DotenvEditor
     /**
      * Add empty line to buffer
      */
-    public function addEmpty(): DotenvEditor
+    public function addEmptyLine(): DotenvEditor
     {
         $this->writer->appendEmptyLine();
 
         return $this;
+    }
+
+    public function addEmpty(): DotenvEditor
+    {
+        return $this->addEmptyLine();
     }
 
     /**
