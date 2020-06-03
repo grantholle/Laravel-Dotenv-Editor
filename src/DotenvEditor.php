@@ -247,8 +247,8 @@ class DotenvEditor
             if (!is_file($this->filePath) || !$this->keyExists($key)) {
                 $this->writer->appendSetter($key, $value, $comment, $export);
             } else {
-                $oldInfo = $this->getKeys([$key]);
-                $comment = is_null($comment) ? $oldInfo[$key]['comment'] : $comment;
+                $oldInfo = $this->getKey($key);
+                $comment = is_null($comment) ? $oldInfo['comment'] : $comment;
                 $this->writer->updateSetter($key, $value, $comment, $export);
             }
         }
