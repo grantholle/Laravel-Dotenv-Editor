@@ -269,15 +269,12 @@ class DotenvEditor
         return $this->setKeys($data);
     }
 
-    /**
-     * Delete many keys in buffer
-     *
-     * @param  array $keys
-     *
-     * @return DotenvEditor
-     */
-    public function deleteKeys($keys = []): DotenvEditor
+    public function deleteKeys(array $keys = []): DotenvEditor
     {
+        if (empty($keys)) {
+            $keys = $this->getKeys();
+        }
+
         foreach ($keys as $key) {
             $this->writer->deleteSetter($key);
         }
@@ -285,23 +282,11 @@ class DotenvEditor
         return $this;
     }
 
-    /**
-     * Delete on key in buffer
-     *
-     * @param  string  $key
-     *
-     * @return DotenvEditor
-     */
-    public function deleteKey($key): DotenvEditor
+    public function deleteKey(string $key): DotenvEditor
     {
-        $keys = [$key];
-
-        return $this->deleteKeys($keys);
+        return $this->deleteKeys([$key]);
     }
 
-    /**
-     * Save buffer to file
-     */
     public function save(): DotenvEditor
     {
         if (is_file($this->filePath) && $this->autoBackup) {
