@@ -1,6 +1,6 @@
 {
-    "name": "grantholle/dotenv-editor",
-    "description": "The .env file editor tool for Laravel 5+",
+    "name": "grantholle/laravel-dotenv-editor",
+    "description": "The .env file editor tool for Laravel 6+",
     "license": "MIT",
     "keywords": ["laravel", "dotenv", "dotenv-editor"],
     "authors": [
