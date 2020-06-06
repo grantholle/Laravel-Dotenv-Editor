@@ -270,6 +270,11 @@ class DotenvEditor
         return $this->setKeys([compact('key', 'value', 'comment', 'export')]);
     }
 
+    public function set($key, $value = null, $comment = null, $export = false): DotenvEditor
+    {
+        return $this->setKey($key, $value, $comment, $export);
+    }
+
     public function deleteKeys(array $keys = []): DotenvEditor
     {
         if (empty($keys)) {

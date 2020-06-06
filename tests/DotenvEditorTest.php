@@ -34,4 +34,19 @@ class DotenvEditorTest extends TestCase
         $key = $this->editor->getKey('MAIL_PORT');
         $this->assertEquals(['line', 'export', 'value', 'comment'], array_keys($key));
     }
+
+    public function test_write_new_value()
+    {
+        $this->editor->setUp(__DIR__ . '/.env3');
+
+        $originalValue = $this->editor->get('MIX_PUSHER_APP_CLUSTER');
+        $this->assertEquals('${PUSHER_APP_CLUSTER}', $originalValue);
+
+        $newExpectedValue = 'my new value';
+        $this->editor->set('MIX_PUSHER_APP_CLUSTER', $newExpectedValue)->save();
+        $newValue = $this->editor->get('MIX_PUSHER_APP_CLUSTER');
+        $this->assertEquals($newExpectedValue, $newValue);
+
+        $this->editor->set('MIX_PUSHER_APP_CLUSTER', $originalValue)->save();
+    }
 }
